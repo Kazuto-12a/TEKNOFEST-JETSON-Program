@@ -1,0 +1,14 @@
+certifi==2025.6.15
+charset-normalizer==3.4.2
+future==1.0.0
+idna==3.10
+iso8601==2.1.0
+numpy==2.3.0
+opencv-python==4.11.0.86
+pyserial==3.5
+PyYAML==6.0.2
+requests==2.32.4
+serial==0.0.97
+urllib3==2.5.0
+#PyQt5==5.15.9
+paho-mqtt==1.5.1

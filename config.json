@@ -1,0 +1,108 @@
+{
+    "sensors": {
+        "temperature": {
+            "value": 19,
+            "min": 10,
+            "max": 50,
+            "enabled": true
+        },
+        "co2": {
+            "value": 1000,
+            "min": 0,
+            "max": 2000,
+            "enabled": true
+        },
+        "tvoc": {
+            "value": 0.5,
+            "min": 0,
+            "max": 10,
+            "enabled": true
+        },
+        "humidity": {
+            "value": 45,
+            "min": 0,
+            "max": 100,
+            "enabled": true
+        },
+        "lux": {
+            "value": 350,
+            "min": 0,
+            "max": 2000,
+            "enabled": true
+        }
+    },
+    "sliders": {
+        "fan_perl": {
+            "label": "Kipas Peltier",
+            "command": "P",
+            "value": 255,
+            "min": 0,
+            "max": 255,
+            "enabled": true
+        },
+        "fan_rad": {
+            "label": "Kipas Radiator",
+            "command": "R",
+            "value": 255,
+            "min": 0,
+            "max": 255,
+            "enabled": true
+        },
+        "rpwm_pelt": {
+            "label": "Peltier PWM",
+            "command": "D",
+            "value": 225,
+            "min": 0,
+            "max": 255,
+            "enabled": true
+        },
+        "growlight": {
+            "label": "Grow Light (Merah)",
+            "command": "G",
+            "value": 0,
+            "min": 0,
+            "max": 255,
+            "enabled": true
+        },
+        "growlight2": {
+            "label": "Grow Light (Biru)",
+            "command": "B",
+            "value": 0,
+            "min": 0,
+            "max": 255,
+            "enabled": true
+        }
+    },
+    "toggles": {
+        "uv_led": {
+            "label": "UV LED",
+            "command": "U",
+            "state": false,
+            "enabled": true
+        },
+        "grow_light": {
+            "label": "Indicator Light",
+            "command": "L",
+            "state": true,
+            "enabled": true
+        },
+        "humidifier": {
+            "label": "Humidifier",
+            "command": "H",
+            "state": true,
+            "enabled": true
+        },
+        "water_pump": {
+            "label": "Water Pump",
+            "command": "W",
+            "state": true,
+            "enabled": true
+        },
+        "ac_power": {
+            "label": "Air Conditioner",
+            "command": "AC",
+            "state": true,
+            "enabled": true
+        }
+    }
+}

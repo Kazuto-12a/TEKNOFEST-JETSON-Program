@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Smart Control UI
+Comment=Menjalankan aplikasi R2C Smart Control
+Exec=bash -c "cd /home/moses/Main/Kulkas_Babe/otw_turki/jetson/ && QT_DBUS_BLOCK_ON_USER_SESSION_BUS=0 python3 main.py"
+Icon=/home/moses/Main/Kulkas_Babe/otw_turki/jetson/Icon.ico
+Terminal=true
+Type=Application
+Categories=Utility;
