@@ -12,7 +12,7 @@ from datetime import datetime
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-DEBUG_LOG_TERMINAL = False  # Set True to show real terminal output in system log
+DEBUG_LOG_TERMINAL = True  # Set True to show real terminal output in system log
 
 class QTextEditLogger:
     def __init__(self, text_edit):
@@ -259,9 +259,9 @@ class Dashboard(QWidget):
             self.plot.addItem(lbl)
 
         # Timer update data dummy
-        self.graph_timer = QTimer(self)
-        self.graph_timer.timeout.connect(self.add_graph_data)
-        self.graph_timer.start(2000)
+        # self.graph_timer = QTimer(self)
+        # self.graph_timer.timeout.connect(self.add_graph_data)
+        # self.graph_timer.start(2000)
 
         # Hapus placeholder jika grafik sudah tampil
         # main_content_layout.addWidget(placeholder)
@@ -340,3 +340,12 @@ class Dashboard(QWidget):
         self.mockup_log_index = (self.mockup_log_index + 1) % len(self.mockup_logs)
         self.log_text.append(self.mockup_logs[self.mockup_log_index])
         self.log_text.moveCursor(QTextCursor.End)
+
+    def update_sensor_data(self, temp, hum, lux, eco2, tvoc, timestamp=None):
+        """Update the graph with new sensor data. Optionally use provided timestamp."""
+        now = timestamp if timestamp is not None else time.time()
+        self.timestamps.append(now)
+        self.temp_data.append(temp)
+        self.hum_data.append(hum)
+        self.lux_data.append(lux)
+        self.update_graph()

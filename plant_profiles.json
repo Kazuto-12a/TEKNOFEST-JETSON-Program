@@ -1,0 +1,9 @@
+{
+  "Lettuce": {"temp": 22, "hum": 60, "lux": 12000, "co2": 800},
+  "Tomato": {"temp": 25, "hum": 65, "lux": 15000, "co2": 1000},
+  "Spinach": {"temp": 20, "hum": 70, "lux": 10000, "co2": 900},
+  "Kale": {"temp": 18, "hum": 75, "lux": 9000, "co2": 850},
+  "Strawberry": {"temp": 21, "hum": 60, "lux": 14000, "co2": 950},
+  "Basil": {"temp": 24, "hum": 55, "lux": 13000, "co2": 850},
+  "Cucumber": {"temp": 26, "hum": 70, "lux": 16000, "co2": 1100}
+}

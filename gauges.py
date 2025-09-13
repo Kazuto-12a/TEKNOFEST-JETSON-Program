@@ -16,6 +16,12 @@ class HalfCircleGauge(QWidget):
         self.anim = QPropertyAnimation(self, b"value", self)
         self.anim.setDuration(600)
         self.anim.setEasingCurve(QEasingCurve.InOutQuad)
+        # Warna sesuai tema UI
+        self.bg_color = QColor("#2d383c")
+        self.arc_bg_color = QColor("#414c50")
+        self.arc_fg_color = QColor("#39ace7")
+        self.text_color = QColor("#b3e5fc")
+        self.temp_text_color = QColor("#ffd600")
 
     def setValue(self, value):
         value = max(0, min(100, value))
@@ -49,39 +55,53 @@ class HalfCircleGauge(QWidget):
         rect = self.rect()
         width = rect.width()
         height = rect.height()
-        size = min(width, height * 2)
+        # Add top margin to move arc lower and avoid overlap with label
+        top_margin = 32
+        size = min(width, (height - top_margin) * 2)
         radius = int(size / 2 - 10)
         center_x = rect.center().x()
         center_y = rect.bottom() - 10
         arc_rect = QRectF(center_x - radius, center_y - radius, radius * 2, radius * 2)
 
-        # Background arc (setengah lingkaran abu-abu)
-        pen_bg = QPen(QColor("#e0e0e0"), 18)
+        # Draw background
+        painter.setBrush(self.bg_color)
+        painter.setPen(Qt.NoPen)
+        painter.drawRect(rect)
+
+        # Draw label above the arc
+        if hasattr(self, 'label_text') and self.label_text:
+            font = QFont()
+            font.setPointSize(12)
+            font.setBold(True)
+            painter.setFont(font)
+            painter.setPen(self.text_color)
+            label_rect = QRectF(
+                arc_rect.left(),
+                arc_rect.top() - 32,  # Move label higher above the arc
+                arc_rect.width(),
+                28
+            )
+            painter.drawText(label_rect, Qt.AlignHCenter | Qt.AlignVCenter, self.label_text)
+
+        # Background arc (dark blue/gray)
+        pen_bg = QPen(self.arc_bg_color, 18)
         painter.setPen(pen_bg)
         painter.drawArc(arc_rect, 180 * 16, -180 * 16)
 
-        # Foreground arc (warna gradien biru ke merah sesuai nilai)
-        cold_color = QColor("#2196f3")  # Biru
-        hot_color = QColor("#e53935")   # Merah
-        ratio = self._value / 100
-        arc_color = QColor(
-            int(cold_color.red()   + (hot_color.red()   - cold_color.red())   * ratio),
-            int(cold_color.green() + (hot_color.green() - cold_color.green()) * ratio),
-            int(cold_color.blue()  + (hot_color.blue()  - cold_color.blue())  * ratio)
-        )
-        pen_fg = QPen(arc_color, 18)
+        # Foreground arc (bright blue)
+        pen_fg = QPen(self.arc_fg_color, 18)
         pen_fg.setCapStyle(Qt.RoundCap)
         painter.setPen(pen_fg)
         span_angle = int(-180 * 16 * (self._value / 100))
         painter.drawArc(arc_rect, 180 * 16, span_angle)
 
-        # Teks suhu di tengah gauge
+        # Temperature text in the center
         temp_text = f"{self.temperature:.1f} °C"
         font = QFont()
         font.setPointSize(18)
         font.setBold(True)
         painter.setFont(font)
-        painter.setPen(QColor("#222"))
+        painter.setPen(self.temp_text_color)
         temp_rect = QRectF(
             arc_rect.left(),
             arc_rect.top() + arc_rect.height() / 8,
@@ -104,6 +124,10 @@ class StripGauge(QWidget):
         self.anim = QPropertyAnimation(self, b"value", self)
         self.anim.setDuration(400)
         self.anim.setEasingCurve(QEasingCurve.InOutQuad)
+        # Warna sesuai tema UI
+        self.bg_color = QColor("#414c50")
+        self.fg_color = QColor("#39ace7")
+        self.border_color = QColor("#b3e5fc")
 
     def setRange(self, min_value, max_value):
         self._min = min_value
@@ -132,15 +156,15 @@ class StripGauge(QWidget):
     def paintEvent(self, event):
         painter = QPainter(self)
         rect = self.rect()
-        # Background strip (abu-abu muda)
-        painter.setPen(QPen(QColor("#c8e6c9"), 1.5))
-        painter.setBrush(QColor("#f1f8e9"))
+        # Background strip (dark blue)
+        painter.setPen(QPen(self.border_color, 1.5))
+        painter.setBrush(self.bg_color)
         painter.drawRoundedRect(rect, 8, 8)
-        # Bagian terisi (gradien hijau)
+        # Filled part (bright blue)
         fill_width = rect.width() * self._value / 100
         grad = QLinearGradient(rect.left(), rect.top(), rect.right(), rect.bottom())
-        grad.setColorAt(0, QColor("#43a047"))
-        grad.setColorAt(1, QColor("#b2ff59"))
+        grad.setColorAt(0, self.fg_color)
+        grad.setColorAt(1, QColor("#81c784"))
         painter.setBrush(QBrush(grad))
         painter.setPen(Qt.NoPen)
         fill_rect = QRectF(rect.left(), rect.top(), fill_width, rect.height())
